@@ -22,8 +22,25 @@ class Tormentor
 
     public function __construct($time = 0)
     {
-       
+       $this->startTime();
     }
+
+    // manage game time
+    public function startTime()
+    {
+        $this->time = 0;
+    }
+    public function setTime(int $time)
+    {
+        $this->time = $time;
+    }
+
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    
 
 
 
