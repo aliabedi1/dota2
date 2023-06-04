@@ -10,7 +10,7 @@ class Tormentor
 
 
     // dynamic properties of tormentor in patch 7.33c
-    private $spawn = 0;
+    private $spawn = 1;
     private $AdditionalHitPoint = ($this->spawn - 1) * 200 ;
     private $hpNow;
 
@@ -26,7 +26,7 @@ class Tormentor
 
 
 
-    
+
 
 
 
