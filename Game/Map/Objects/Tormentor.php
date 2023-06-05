@@ -24,9 +24,12 @@ class Tormentor
 
 
 
-    public function __construct($time = 0)
+    public function __construct(bool $start = true)
     {
-       $this->startTime();
+       if($start)
+       {
+            $this->makeTorment();
+       }
     }
 
     // manage game time
@@ -64,7 +67,7 @@ class Tormentor
         {
             $this->spawnedCount ++;
             $this->setTimeForSpawns();
-            echo self::name .'spawned';
+            echo self::name .'spawned\n';
             return true;
         }
         return false;
@@ -237,6 +240,11 @@ class Tormentor
 
 
 
+    private function makeTorment()
+    {
+        $this->setTime(self::firstRespawnTime);
+        $this->spawn();
+    }
 
 
 
