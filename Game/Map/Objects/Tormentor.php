@@ -16,7 +16,6 @@ class Tormentor
     private $time;
     private $spawnedCount;
     private $diedAt;
-    private $nextRespawnTime;
 
 
 
@@ -132,7 +131,18 @@ class Tormentor
         }
     }
 
-
+    private function getNextRespawnTime()
+    {
+        if($this->time < self::firstRespawnTime)
+        {
+            return self::firstRespawnTime;
+        }
+        if($this->diedAt)
+        {
+            return $this->diedAt + self::respawnTimeDuration;
+        }
+        return 0;
+    }
     // todo: update time at killing or spawning
 
 
