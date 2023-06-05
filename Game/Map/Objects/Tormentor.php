@@ -4,11 +4,16 @@ class Tormentor
 {
     // static properties of tormentor in patch 7.33c
     const name = 'Tormentor ';
-    const magicResist = 55;
+    const magicResistPercentage = 55;
     const baseHitPoint = 2500;
+    const HpIncreasePerRespawn = 200;
     const hpRegen = 100;
     const firstRespawnTime = 1200;
     const respawnTimeDuration = 600;
+    const returnDamagePercentage = 80;
+    const returnDamageTypes = [
+        'PURE','PHYSICAL','MAGICAL'
+    ];
 
     
     
@@ -43,7 +48,7 @@ class Tormentor
     {
         if($this->time < self::firstRespawnTime)
         {
-            return self::name . 'cant spawn before 20:00 minute\n';
+            return self::name . 'cant spawn before 20:00 minutes\n';
         }
         $this->spawnedCount = $spawnedCount;
     }
@@ -171,8 +176,45 @@ class Tormentor
         return true;
 
     }
-    // todo: update time at killing or spawning
 
+    private function getBaseHP()
+    {
+        return self::baseHitPoint;
+    }
+
+    private function getCurrentHP()
+    {
+        $x= 'time';
+        if($this->time < self::firstRespawnTime)
+        {
+            echo self::name ."has not been spawned yet";
+            return 0;
+        }
+        if($this->time < $this->diedAt)
+        {
+            echo self::name .'is dead and respawn in ' . $x. " with" .$x .' hp';
+            return 0;
+        }
+        return $this->calculateHP();
+    }
+
+
+    private function calculateHP($count = 0)
+    {
+        return self::baseHitPoint + (($this->spawnedCount + $count) * self::HpIncreasePerRespawn);
+    }
+
+    public function getFutureHP($count = 1)
+    {
+        if($this->time < self::firstRespawnTime)
+        {
+            return self::baseHitPoint;
+        }
+        else
+        {
+            $this->calculateHP($count);
+        }
+    }
 
 
 
