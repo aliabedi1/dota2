@@ -46,9 +46,9 @@ class Tormentor
 
     private function setSpawnedCount(int $spawnedCount)
     {
-        if($this->time < self::firstRespawnTime)
+        if($this->hasSpawnedYet(self::name . 'cant spawn before 20:00 minutes'))
         {
-            return self::name . 'cant spawn before 20:00 minutes\n';
+            $this->spawnedCount = 0;
         }
         $this->spawnedCount = $spawnedCount;
     }
@@ -84,9 +84,8 @@ class Tormentor
 
     private function isSpawnable() : bool
     {
-        if($this->time < self::firstRespawnTime)
+        if($this->hasSpawnedYet(self::name . 'cant respawn before 20:00 minutes\n'))
         {
-            echo self::name . 'cant respawn before 20:00 minute\n';
             return false;
         }
         return true;
@@ -106,9 +105,8 @@ class Tormentor
     }
     private function getAvailableTime()
     {
-        if($this->time < self::firstRespawnTime)
+        if($this->hasSpawnedYet(self::name . ' didn\'t respawn'))
         {
-            echo self::name . ' didn\'t respawn';
             return 0;
         }
         if($this->diedAt)
@@ -138,7 +136,7 @@ class Tormentor
 
     private function getNextRespawnTime()
     {
-        if($this->time < self::firstRespawnTime)
+        if($this->hasSpawnedYet())
         {
             return self::firstRespawnTime;
         }
@@ -163,9 +161,8 @@ class Tormentor
 
     private function isKillabe() : bool
     {
-        if($this->time < self::firstRespawnTime)
+        if($this->hasSpawnedYet("cant kill " . self::name .'because it has not been spawned yet'))
         {
-            echo "cant kill " . self::name .'because it has not been spawned yet';
             return false;
         }
         if($this->time < $this->diedAt)
@@ -185,9 +182,8 @@ class Tormentor
     private function getCurrentHP()
     {
         $x= 'time';
-        if($this->time < self::firstRespawnTime)
+        if($this->hasSpawnedYet(self::name ."has not been spawned yet"))
         {
-            echo self::name ."has not been spawned yet";
             return 0;
         }
         if($this->time < $this->diedAt)
@@ -206,7 +202,7 @@ class Tormentor
 
     public function getFutureHP($count = 1)
     {
-        if($this->time < self::firstRespawnTime)
+        if($this->hasSpawnedYet())
         {
             return self::baseHitPoint;
         }
@@ -214,6 +210,16 @@ class Tormentor
         {
             $this->calculateHP($count);
         }
+    }
+
+    private function hasSpawnedYet($message = null)
+    {
+        $condition = $this->time < self::firstRespawnTime;
+        if($message && $condition)
+        {
+            echo $message . '\n';
+        }
+        return $condition;
     }
 
 
