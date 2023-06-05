@@ -165,9 +165,8 @@ class Tormentor
         {
             return false;
         }
-        if($this->time < $this->diedAt)
+        if($this->isRespawning(self::name .'is alraedy dead'))
         {
-            echo self::name .'is alraedy dead';
             return false;
         }
         return true;
@@ -185,9 +184,8 @@ class Tormentor
         {
             return 0;
         }
-        if($this->time < $this->diedAt)
+        if($this->isRespawning(self::name .'is dead and respawn in ' . $this->convertTime($this->getNextRespawnTime()) . " with " . $this->getFutureHP() .' hp'))
         {
-            echo self::name .'is dead and respawn in ' . $this->convertTime($this->getNextRespawnTime()) . " with" .$x .' hp';
             return 0;
         }
         return $this->calculateHP();
@@ -214,6 +212,16 @@ class Tormentor
     private function hasSpawnedYet($message = null)
     {
         $condition = $this->time < self::firstRespawnTime;
+        if($message && $condition)
+        {
+            echo $message . '\n';
+        }
+        return $condition;
+    }
+
+    private function isRespawning($message = null)
+    {
+        $condition = $this->time < $this->diedAt;
         if($message && $condition)
         {
             echo $message . '\n';
