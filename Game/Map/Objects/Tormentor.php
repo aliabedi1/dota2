@@ -3,15 +3,15 @@
 class Tormentor
 {
     // static properties of tormentor in patch 7.33c
-    const name = 'Tormentor ';
-    const magicResistPercentage = 55;
-    const baseHitPoint = 2500;
-    const HpIncreasePerRespawn = 200;
-    const hpRegen = 100;
-    const firstRespawnTime = 1200;
-    const respawnTimeDuration = 600;
-    const returnDamagePercentage = 80;
-    const returnDamageTypes = [
+    public const name = 'Tormentor ';
+    public const magicResistPercentage = 55;
+    private const baseHitPoint = 2500;
+    private const HpIncreasePerRespawn = 200;
+    public const hpRegen = 100;
+    public const firstRespawnTime = 1200;
+    private const respawnTimeDuration = 600;
+    public const returnDamagePercentage = 80;
+    public const returnDamageTypes = [
         'PURE','PHYSICAL','MAGICAL'
     ];
 
