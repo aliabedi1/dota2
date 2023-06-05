@@ -246,7 +246,17 @@ class Tormentor
         $this->spawn();
     }
 
+    
+    private function addTime(int $time)
+    {
+        $this->time += $time; 
+    }
 
+
+    private function minusTime(int $time)
+    {
+        $this->time -= $time; 
+    }
 
 
 }
