@@ -200,7 +200,7 @@ class Tormentor
 
     private function calculateHP($count = 0)
     {
-        return self::baseHitPoint + (($this->spawnedCount + $count) * self::HpIncreasePerRespawn);
+        return self::baseHitPoint + ((($this->spawnedCount - 1) + $count) * self::HpIncreasePerRespawn);
     }
 
     public function getFutureHP($count = 1)
@@ -259,6 +259,22 @@ class Tormentor
     private function minusTime(int $time)
     {
         $this->time -= $time; 
+    }
+
+    private function currentReturnDamagePercentage()
+    {
+        if($this->hasSpawnedYet(self::name .'is not spawned yet'))
+        {
+            return (self::returnDamagePercentage + (($this->spawnedCount - 1) * self::returnDamagePercentageIncreasePerDeath))/100;
+        }
+    }
+
+    private function returnDamage(int $damage)
+    {
+        if($this->isKillabe())
+        {
+            return $damage * $this->currentReturnDamagePercentage();
+        }
     }
 
 
