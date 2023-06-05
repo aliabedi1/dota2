@@ -181,14 +181,13 @@ class Tormentor
 
     private function getCurrentHP()
     {
-        $x= 'time';
         if($this->hasSpawnedYet(self::name ."has not been spawned yet"))
         {
             return 0;
         }
         if($this->time < $this->diedAt)
         {
-            echo self::name .'is dead and respawn in ' . $x. " with" .$x .' hp';
+            echo self::name .'is dead and respawn in ' . $this->convertTime($this->getNextRespawnTime()) . " with" .$x .' hp';
             return 0;
         }
         return $this->calculateHP();
@@ -220,6 +219,12 @@ class Tormentor
             echo $message . '\n';
         }
         return $condition;
+    }
+
+    private function convertTime($seconds)
+    {
+        $minutes = $seconds / 60;
+        return $minutes.":".($minutes%$seconds);
     }
 
 
