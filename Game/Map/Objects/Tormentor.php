@@ -43,9 +43,9 @@ class Tormentor
     {
         if($this->time < self::firstRespawnTime)
         {
-            return self::name . 'cant respawn before 20:00 minute\n';
+            return self::name . 'cant spawn before 20:00 minute\n';
         }
-        $this->$this = $spawnedCount;
+        $this->spawnedCount = $spawnedCount;
     }
 
     private function getSpawnedCount()
@@ -142,6 +142,34 @@ class Tormentor
             return $this->diedAt + self::respawnTimeDuration;
         }
         return 0;
+    }
+
+    private function kill($time = null)
+    {
+        $timeNow = $time ?? $this->time;
+        if($this->isKillabe())
+        {
+            $this->setTime($timeNow);
+            $this->diedAt = $timeNow;
+        }
+        return false;
+    }
+
+
+    private function isKillabe() : bool
+    {
+        if($this->time < self::firstRespawnTime)
+        {
+            echo "cant kill " . self::name .'because it has not been spawned yet';
+            return false;
+        }
+        if($this->time < $this->diedAt)
+        {
+            echo self::name .'is alraedy dead';
+            return false;
+        }
+        return true;
+
     }
     // todo: update time at killing or spawning
 
