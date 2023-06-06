@@ -1,5 +1,7 @@
 <?php
 
+namespace Game\Map\Objects;
+
 class Tormentor
 {
     // static properties of tormentor in patch 7.33c
@@ -275,6 +277,11 @@ class Tormentor
         {
             return $damage * $this->currentReturnDamagePercentage();
         }
+    }
+
+    public function killByTechiesMines()
+    {
+        
     }
 
 
